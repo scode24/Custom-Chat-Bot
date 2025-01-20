@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+@layer components {
+  .bg-light {
+    @apply bg-gradient-to-b from-zinc-50 to-zinc-200;
+  }
+
+  .bg-dark {
+    @apply bg-gradient-to-b from-zinc-700 to-zinc-900;
+  }
+
+  .light-border-mark {
+    @apply border-solid border-zinc-300;
+  }
+
+  .dark-border-mark {
+    @apply border-solid border-zinc-600;
+  }
+
+  .v-center {
+    @apply flex flex-col justify-center;
+  }
+
+  .h-center {
+    @apply flex flex-row justify-center;
+  }
+
+  .center {
+    @apply flex flex-col justify-center items-center;
+  }
+}
