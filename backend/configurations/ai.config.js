@@ -4,8 +4,12 @@ let model;
 let generationConfig;
 
 const initConfig = (func) => {
-  if (process.env.LLM_API_KEY === undefined) {
-    throw new Error("LLM_API_KEY is undefined");
+  if (
+    process.env.LLM_API_KEY === undefined ||
+    process.env.LLM_API_KEY === null ||
+    process.env.LLM_API_KEY === ""
+  ) {
+    throw new Error("LLM_API_KEY is required");
   }
 
   const apiKey = process.env.LLM_API_KEY;
