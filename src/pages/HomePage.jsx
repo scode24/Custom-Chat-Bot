@@ -15,9 +15,12 @@ const HomePage = () => {
       />
 
       <div className="flex flex-col items-center text-center mt-10 text-2xl md:text-3xl lg:text-5xl">
-        <span className="font-thin">{process.env.REACT_APP_TAGLINE_1}</span>
+        <span className="font-thin">
+          {process.env.REACT_APP_TAGLINE_1 || "Unlock the Future of Learning"}
+        </span>
         <span className="font-bold mt-5">
-          {process.env.REACT_APP_TAGLINE_2}
+          {process.env.REACT_APP_TAGLINE_2 ||
+            "AI-Powered Guidance to Boost Your Tech Skills"}
         </span>
 
         <div

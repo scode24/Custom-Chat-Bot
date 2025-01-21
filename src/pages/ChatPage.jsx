@@ -58,23 +58,17 @@ const ChatPage = () => {
       updateChatList(response?.data?.answer, "bot");
     } catch (err) {
       console.error(err);
-      setMessages((prevMessages) => {
-        const newMessages = [
-          ...prevMessages,
-          {
-            message: "OOPs! something went wrong. " + err.message,
-            sender: "bot",
-            status: "error",
-          },
-        ];
-        return newMessages;
-      });
+      updateChatList(
+        "OOPs! something went wrong. " + err.message,
+        "bot",
+        "error"
+      );
     } finally {
       setQuery("");
     }
   };
 
-  const updateChatList = (message, from) => {
+  const updateChatList = (message, from, status) => {
     if (from === "user") {
       setIsQuestionAsked(true);
     } else if (from === "bot") {
@@ -88,6 +82,7 @@ const ChatPage = () => {
     newMessages.push({
       message: message,
       sender: from,
+      status: status,
     });
 
     setMessages(newMessages);

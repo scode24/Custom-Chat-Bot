@@ -37,7 +37,9 @@ const Header = () => {
         config={{
           icon: <MessageSquare />,
           html: (
-            <span className="font-semibold">{process.env.REACT_APP_TITLE}</span>
+            <span className="font-semibold">
+              {process.env.REACT_APP_TITLE || "Skill Guide"}
+            </span>
           ),
           onClickFn: () => navigator("/"),
         }}
@@ -56,7 +58,11 @@ const Header = () => {
               {
                 icon: <Github />,
                 html: "Source",
-                onClickFn: () => window.open(process.env.REACT_APP_SOURCE_URL),
+                onClickFn: () =>
+                  window.open(
+                    process.env.REACT_APP_SOURCE_URL ||
+                      "https://github.com/scode24/Custom-Chat-Bot"
+                  ),
               },
             ],
           }}
@@ -88,7 +94,10 @@ const Header = () => {
                       icon: <Github />,
                       html: "Source",
                       onClickFn: () =>
-                        window.open(process.env.REACT_APP_SOURCE_URL),
+                        window.open(
+                          process.env.REACT_APP_SOURCE_URL ||
+                            "https://github.com/scode24/Custom-Chat-Bot"
+                        ),
                     },
                   ],
                 }}
