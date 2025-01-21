@@ -6,17 +6,29 @@ const ChatBubble = (props) => {
 
   return (
     <div
-      className="flex flex-row my-5"
+      className="flex flex-row my-5 md:my-10"
       style={{
-        justifyContent: sender === "bot" ? "start" : "end",
+        justifyContent:
+          sender === "bot" || sender === "bot-loading" ? "start" : "end",
       }}
     >
       <div className="flex flex-row max-w-[95%] md:max-w-[85%] lg:max-w-[75%]">
         <div className="flex-shrink-0 center rounded-full light-border-mark border-[1px] w-10 h-10 mr-3 dark:dark-border-mark">
-          {sender === "bot" ? <Bot /> : <User />}
+          {sender === "bot" || sender === "bot-loading" ? <Bot /> : <User />}
         </div>
 
         {sender === "bot" && (
+          <div
+            className="rounded-xl p-3 shadow-md text-white"
+            style={{
+              backgroundColor: status === "error" ? "red" : "#007bff",
+            }}
+          >
+            {message}
+          </div>
+        )}
+
+        {sender === "bot-loading" && (
           <div
             className="rounded-xl p-3 shadow-md text-white"
             style={{

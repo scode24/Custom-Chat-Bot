@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Ellipsis } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
 import ChatBubble from "../components/ChatBubble";
 import ChatInputBox from "../components/ChatInputBox";
@@ -8,6 +9,7 @@ const ChatPage = () => {
   const [messages, setMessages] = useState([]);
   const [query, setQuery] = useState();
   const [inputType, setInputType] = useState();
+  const [isQuestionAsked, setIsQuestionAsked] = useState(false);
 
   useEffect(() => {
     const adjustChatListHeight = () => {
@@ -32,8 +34,11 @@ const ChatPage = () => {
   }, []);
 
   useEffect(() => {
+    if (isQuestionAsked) {
+      getAnswerFromLLM();
+    }
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  }, [messages, isQuestionAsked]);
 
   useEffect(() => {
     if (inputType === "voice") {
@@ -41,47 +46,57 @@ const ChatPage = () => {
     }
   }, [inputType]);
 
-  const askQuery = async () => {
-    if (query) {
+  const getAnswerFromLLM = async () => {
+    try {
+      const response = await axios.post(
+        process.env.REACT_APP_SERVICE_BASE_URL + "/query",
+        {
+          query: query,
+        }
+      );
+
+      updateChatList(response?.data?.answer, "bot");
+    } catch (err) {
+      console.error(err);
       setMessages((prevMessages) => {
         const newMessages = [
           ...prevMessages,
-          { message: query, sender: "user" },
+          {
+            message: "OOPs! something went wrong. " + err.message,
+            sender: "bot",
+            status: "error",
+          },
         ];
         return newMessages;
       });
+    } finally {
+      setQuery("");
+    }
+  };
 
-      try {
-        const response = await axios.post(
-          process.env.REACT_APP_SERVICE_BASE_URL + "/query",
-          {
-            query: query,
-          }
-        );
+  const updateChatList = (message, from) => {
+    if (from === "user") {
+      setIsQuestionAsked(true);
+    } else if (from === "bot") {
+      setIsQuestionAsked(false);
+    }
 
-        setMessages((prevMessages) => {
-          const newMessages = [
-            ...prevMessages,
-            { message: response?.data?.answer, sender: "bot" },
-          ];
-          return newMessages;
-        });
-      } catch (err) {
-        console.error(err);
-        setMessages((prevMessages) => {
-          const newMessages = [
-            ...prevMessages,
-            {
-              message: "OOPs! something went wrong. " + err.message,
-              sender: "bot",
-              status: "error",
-            },
-          ];
-          return newMessages;
-        });
-      } finally {
-        setQuery("");
-      }
+    let newMessages = messages;
+    if (from === "bot") {
+      newMessages = newMessages.slice(0, newMessages.length - 1);
+    }
+    newMessages.push({
+      message: message,
+      sender: from,
+    });
+
+    setMessages(newMessages);
+  };
+
+  const askQuery = async () => {
+    if (query) {
+      updateChatList(query, "user");
+      updateChatList(<Ellipsis className="animate-pulse" />, "bot-loading");
     }
   };
 
