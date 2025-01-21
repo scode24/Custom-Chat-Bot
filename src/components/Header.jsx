@@ -1,11 +1,14 @@
 import { Github, Menu, MessageSquare, Moon, Sun } from "lucide-react";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import IconInfoBox from "./IconInfoBox";
 import MenuList from "./MenuList";
 
 const Header = () => {
   const [currentTheme, setCurrentTheme] = useState("light");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const navigator = useNavigate();
 
   const toggleTheme = () => {
     const currentTheme = document.body.classList.contains("dark")
@@ -36,6 +39,7 @@ const Header = () => {
           html: (
             <span className="font-semibold">{process.env.REACT_APP_TITLE}</span>
           ),
+          onClickFn: () => navigator("/"),
         }}
       />
 

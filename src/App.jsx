@@ -15,7 +15,6 @@ function App() {
           <Route path="/chat" element={<ChatPage />} />
           <Route path="*" element={<ErrorPage />}></Route>
         </Routes>
-        {/* <Footer /> */}
       </BrowserRouter>
     </div>
   );
