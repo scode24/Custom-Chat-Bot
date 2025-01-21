@@ -1,0 +1,20 @@
+# Step 1: Use an official Node.js image as the base image
+FROM node:16-alpine
+
+# Step 2: Set the working directory inside the container
+WORKDIR /app
+
+# Step 3: Copy package.json and package-lock.json first (to install dependencies)
+COPY package.json package-lock.json ./
+
+# Step 4: Install the app's dependencies
+RUN npm install
+
+# Step 5: Copy the rest of the application code to the container
+COPY . .
+
+# Step 6: Expose the port that the Express app will run on
+EXPOSE 7001
+
+# Step 7: Start the Express app (make sure your app listens on port 7001)
+CMD ["npm", "start"]

@@ -53,7 +53,11 @@ const Header = () => {
               currentTheme === "light"
                 ? { icon: <Moon />, html: "Dark", onClickFn: toggleTheme }
                 : undefined,
-              { icon: <Github />, html: "Source" },
+              {
+                icon: <Github />,
+                html: "Source",
+                onClickFn: () => window.open(process.env.REACT_APP_SOURCE_URL),
+              },
             ],
           }}
         />
@@ -80,7 +84,12 @@ const Header = () => {
                     currentTheme === "light"
                       ? { icon: <Moon />, html: "Dark", onClickFn: toggleTheme }
                       : undefined,
-                    { icon: <Github />, html: "Source" },
+                    {
+                      icon: <Github />,
+                      html: "Source",
+                      onClickFn: () =>
+                        window.open(process.env.REACT_APP_SOURCE_URL),
+                    },
                   ],
                 }}
               />
