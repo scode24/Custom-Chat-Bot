@@ -1,70 +1,136 @@
-# Getting Started with Create React App
+Sure! Here's the README without code blocks:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Skill Guide: AI-Powered Chatbot for Skill Upgrade Planning
 
-## Available Scripts
+Welcome to **Skill Guide**, an AI-powered chatbot that helps you plan your skill upgrades, suggest what to learn next, and provide personalized guidance to boost your technical skills. This app is built using the **Gemini-2.0-Flash-Exp** model from Google Gemini, and it can be customized for various parameters to suit your needs.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- **AI-Powered Skill Upgrade Guidance**: Get suggestions on what skills to learn, the best technologies to focus on, and the most valuable resources available.
+- **Customizable Parameters**: Modify the chatbot behavior to suit your needs by adjusting various settings (e.g., temperature, top-p, max tokens, and more).
+- **Dockerized UI & Service**: Both the frontend and backend are dockerized, making it easy to deploy and run the app using Docker Compose.
+- **Built with Modern Web Tech**: The frontend is built with **React.js 19**, and the backend is powered by **Node.js 20** and **Express**.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Installation & Setup
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Step 1: Clone the repository
 
-### `npm test`
+```
+git clone https://github.com/scode24/Custom-Chat-Bot.git
+cd Custom-Chat-Bot
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Step 2: Docker Compose Setup
 
-### `npm run build`
+Make sure you have **Docker** and **Docker Compose** installed. Then, you can deploy both the backend and frontend by running:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+docker-compose up --build
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Step 3: Configure Environment Variables
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+#### Backend (`backend` service)
 
-### `npm run eject`
+Configure the following environment variables in the `docker-compose.yml` or your `.env` file:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **LLM_API_KEY**: Your **Google Gemini API Key** (required)
+- **LLM_MODEL**: The default LLM model to use (default: `gemini-2.0-flash-exp`)
+- **LLM_MODEL_CONFIG_TEMPERATURE**: Controls randomness (default: `1`)
+- **LLM_MODEL_CONFIG_TOP_P**: Nucleus sampling (default: `0.95`)
+- **LLM_MODEL_CONFIG_TOP_K**: Limits the number of potential responses (default: `40`)
+- **LLM_MODEL_CONFIG_MAX_TOKENS**: Max number of tokens (default: `100`)
+- **LLM_MODEL_CONFIG_SYSTEM_PROMPT**: Custom system prompt for the model (default: `"You as a technical coach, guide on upgrading skillsets, staying updated with cutting-edge technologies, and selecting the most valuable technologies to learn for the future. Make answer to the point and try to answer in one line."`)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### Frontend (`frontend` service)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Configure the following frontend environment variables:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- **REACT_APP_TITLE**: The title of the app (default: `Skill Guide`)
+- **REACT_APP_TAGLINE_1**: The first tagline (default: `Unlock the Future of Learning`)
+- **REACT_APP_TAGLINE_2**: The second tagline (default: `AI-Powered Guidance to Boost Your Tech Skills`)
+- **REACT_APP_SERVICE_BASE_URL**: The URL of the backend service (default: `http://localhost:7001`)
+- **REACT_APP_SOURCE_URL**: The source URL of the repository (default: `https://github.com/scode24/Custom-Chat-Bot`)
 
-## Learn More
+### Step 4: Access the App
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Once the Docker containers are running, open your browser and navigate to:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **Frontend**: [http://localhost:3000](http://localhost:3000)
+- **Backend API**: [http://localhost:7001](http://localhost:7001)
 
-### Code Splitting
+## Docker Compose File Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```
+version: "3.8"
 
-### Analyzing the Bundle Size
+services:
+  backend:
+    image: soumyabrata024/custom-chat-bot-service:latest
+    ports:
+      - "7001:7001"
+    environment:
+      - NODE_ENV=prod
+      - PORT=7001
+      - LLM_API_KEY= # Required
+      - LLM_MODEL= # Default: gemini-2.0-flash-exp
+      - LLM_MODEL_CONFIG_TEMPERATURE= # Default: 1
+      - LLM_MODEL_CONFIG_TOP_P= # Default: 0.95
+      - LLM_MODEL_CONFIG_TOP_K= # Default: 40
+      - LLM_MODEL_CONFIG_MAX_TOKENS= # Default: 100
+      - LLM_MODEL_CONFIG_SYSTEM_PROMPT= # Default: Custom system prompt
+    networks:
+      - my-network
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+  frontend:
+    image: soumyabrata024/custom-chat-bot:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_TITLE= # Default: Skill Guide
+      - REACT_APP_TAGLINE_1= # Default: Unlock the Future of Learning
+      - REACT_APP_TAGLINE_2= # Default: AI-Powered Guidance to Boost Your Tech Skills
+      - REACT_APP_SERVICE_BASE_URL= # Default: http://localhost:7001
+      - REACT_APP_SOURCE_URL= # Default: https://github.com/scode24/Custom-Chat-Bot
+    build:
+      context: ./frontend
+    networks:
+      - my-network
 
-### Making a Progressive Web App
+networks:
+  my-network:
+    driver: bridge
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Step 5: Customizing the Parameters
 
-### Advanced Configuration
+You can customize the following parameters as per your needs:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- **LLM Model Configurations**: Adjust model settings like `temperature`, `top_p`, `top_k`, etc.
+- **Frontend Texts**: Change the title, tagline, and source URL to match your use case.
 
-### Deployment
+### Step 6: Google Gemini Access API Key
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+To use the **Gemini LLM model**, you need to acquire an API key from **Google Gemini**. Once you have the API key, add it to your backend configuration as the `LLM_API_KEY`.
 
-### `npm run build` fails to minify
+## Usage
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Once the application is up and running, you can interact with the chatbot through the UI at [http://localhost:3000](http://localhost:3000). Ask the chatbot questions like:
+
+- "What should I learn next in AI?"
+- "How can I improve my Python skills?"
+- "What are the latest trends in software development?"
+
+## Contributing
+
+If you'd like to contribute to the project, feel free to fork the repository, make changes, and submit a pull request. Contributions are always welcome!
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## Contact
+
+For any issues or suggestions, feel free to open an issue on the [GitHub repository](https://github.com/scode24/Custom-Chat-Bot).
