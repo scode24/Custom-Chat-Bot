@@ -26,7 +26,7 @@ const initConfig = (func) => {
     temperature: process.env.LLM_MODEL_CONFIG_TEMPERATURE || 1,
     topP: process.env.LLM_MODEL_CONFIG_TOP_P || 0.95,
     topK: process.env.LLM_MODEL_CONFIG_TOP_K || 40,
-    maxOutputTokens: process.env.LLM_MODEL_CONFIG_MAX_TOKENS,
+    maxOutputTokens: process.env.LLM_MODEL_CONFIG_MAX_TOKENS || 100,
     responseMimeType: "text/plain",
   };
 
@@ -34,8 +34,8 @@ const initConfig = (func) => {
     "Initialized config parameters: " +
       "\n----------------------------------------------------\n" +
       JSON.stringify({
-        model: process.env.LLM_MODEL,
-        systemInstruction: process.env.LLM_MODEL_CONFIG_SYSTEM_PROMPT,
+        model: model.model,
+        systemInstruction: model.systemInstruction,
         temperature: generationConfig.temperature,
         topP: generationConfig.topP,
         topK: generationConfig.topK,

@@ -1,8 +1,10 @@
-Sure! Here's the README without code blocks:
+![Alt text](/public/chat-bot-image.png)
 
 # Skill Guide: AI-Powered Chatbot for Skill Upgrade Planning
 
 Welcome to **Skill Guide**, an AI-powered chatbot that helps you plan your skill upgrades, suggest what to learn next, and provide personalized guidance to boost your technical skills. This app is built using the **Gemini-2.0-Flash-Exp** model from Google Gemini, and it can be customized for various parameters to suit your needs.
+
+Live link : http://89.116.33.28:3000/
 
 ## Features
 
@@ -61,7 +63,7 @@ Configure the following frontend environment variables:
 - **REACT_APP_TITLE**: The title of the app (default: `Skill Guide`)
 - **REACT_APP_TAGLINE_1**: The first tagline (default: `Unlock the Future of Learning`)
 - **REACT_APP_TAGLINE_2**: The second tagline (default: `AI-Powered Guidance to Boost Your Tech Skills`)
-- **REACT_APP_SERVICE_BASE_URL**: The URL of the backend service (default: `http://localhost:7001`)
+- **REACT_APP_SERVICE_BASE_URL**: `http://localhost:7001 This is required`
 - **REACT_APP_SOURCE_URL**: The source URL of the repository (default: `https://github.com/scode24/Custom-Chat-Bot`)
 
 ### Step 4: Access the App
@@ -102,7 +104,7 @@ services:
       - REACT_APP_TITLE= # Default: Skill Guide
       - REACT_APP_TAGLINE_1= # Default: Unlock the Future of Learning
       - REACT_APP_TAGLINE_2= # Default: AI-Powered Guidance to Boost Your Tech Skills
-      - REACT_APP_SERVICE_BASE_URL= # Default: http://localhost:7001
+      - REACT_APP_SERVICE_BASE_URL=http://localhost:7001 # Required
       - REACT_APP_SOURCE_URL= # Default: https://github.com/scode24/Custom-Chat-Bot
     build:
       context: ./frontend
