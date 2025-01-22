@@ -20,9 +20,21 @@ git clone https://github.com/scode24/Custom-Chat-Bot.git
 cd Custom-Chat-Bot
 ```
 
+In case you want to run the application by cloning the application, then clone the application and run create two .env files in the same directory and in backend directory with the corresponding key values provided above for both frontend and backend. Then use below command to run frontend and backend
+
+- Make sure Node JS 20 is installed. Follow https://nodejs.org/en/download
+
+```
+cd backend
+npm start # to run backend service
+
+cd ..
+npm start # to run frontend service
+```
+
 ### Step 2: Docker Compose Setup
 
-Make sure you have **Docker** and **Docker Compose** installed. Then, you can deploy both the backend and frontend by running:
+Make sure you have **Docker** and **Docker Compose** installed. Then, you can deploy both the backend and frontend by running, follow https://www.docker.com/products/docker-desktop/:
 
 ```
 docker-compose up --build
