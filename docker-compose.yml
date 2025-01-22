@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+  backend:
+    image: soumyabrata024/custom-chat-bot-service:latest
+    ports:
+      - "7001:7001"
+    environment:
+      - NODE_ENV=prod
+      - PORT=7001
+      - LLM_API_KEY= #Required
+      - LLM_MODEL= # default : gemini-2.0-flash-exp
+      - LLM_MODEL_CONFIG_TEMPERATURE= # default : 1
+      - LLM_MODEL_CONFIG_TOP_P= # default : 0.95
+      - LLM_MODEL_CONFIG_TOP_K= # default : 40
+      - LLM_MODEL_CONFIG_MAX_TOKENS= # default : 100
+      - LLM_MODEL_CONFIG_SYSTEM_PROMPT= # default : You as a technical coach, guide on upgrading skillsets, staying updated with cutting-edge technologies, and selecting the most valuable technologies to learn for the future. Make answer to the point and try to answer in one line.
+    networks:
+      - my-network
+
+  frontend:
+    image: soumyabrata024/custom-chat-bot:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_TITLE= # default : Skill Guide
+      - REACT_APP_TAGLINE_1= # default : Unlock the Future of Learning
+      - REACT_APP_TAGLINE_2= # default : AI-Powered Guidance to Boost Your Tech Skills
+      - REACT_APP_SERVICE_BASE_URL= # default : http://localhost:7001
+      - REACT_APP_SOURCE_URL= # default : https://github.com/scode24/Custom-Chat-Bot
+    build:
+      context: ./frontend
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
