@@ -133,7 +133,7 @@ Once the application is up and running, you can interact with the chatbot throug
 
 - "What should I learn next in AI?"
 - "How can I improve my Python skills?"
-- "What are the latest trends in software development?"
+- "Give one link to learn Python"
 
 ## Contributing
 
