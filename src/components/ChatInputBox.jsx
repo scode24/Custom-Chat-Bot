@@ -7,7 +7,7 @@ import ChatInputBoxButton from "./ChatInputBoxButton";
 
 const ChatInputBox = (props) => {
   const { query, setQueryFn, askQueryFn, setInputTypeFn } = props.config;
-  const [isMicOn, setIsMicOn] = useState(false);
+  const [isMicOn, setIsMicOn] = useState(undefined);
   const {
     transcript,
     listening,
@@ -28,6 +28,10 @@ const ChatInputBox = (props) => {
   };
 
   useEffect(() => {
+    if (isMicOn === undefined) {
+      return;
+    }
+
     if (isMicOn) {
       SpeechRecognition.startListening();
     } else {
@@ -44,16 +48,20 @@ const ChatInputBox = (props) => {
       className="flex flex-col rounded-xl bg-white light-border-mark border-[1px] shadow-md p-2 dark:bg-zinc-700 dark:dark-border-mark"
     >
       <textarea
-        className="outline-none p-3 dark:bg-zinc-700"
-        rows={1}
-        placeholder="Ask your query"
+        className="outline-none p-1 dark:bg-zinc-700"
+        rows={2}
+        placeholder={
+          isMicOn
+            ? "Listening... You may speak your query now. Once you are done, click the Microphone button to send your question"
+            : "Type your query and press Enter or click the 'Send' button."
+        }
         value={query || transcript}
         onChange={(event) => setQueryFn(event.target.value)}
         onKeyDown={(event) => handleKeyDown(event)}
       />
       <div
         id="chat-input-box-button"
-        className="flex flex-row justify-end p-3 bg-white dark:bg-zinc-700"
+        className="flex flex-row justify-end p-1 bg-white dark:bg-zinc-700"
       >
         <div className="flex flex-row">
           {browserSupportsSpeechRecognition && (

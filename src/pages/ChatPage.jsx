@@ -26,6 +26,11 @@ const ChatPage = () => {
     adjustChatListHeight();
     window.addEventListener("resize", adjustChatListHeight);
     window.addEventListener("orientationchange", adjustChatListHeight);
+    updateChatList(
+      process.env.REACT_APP_CHAT_BOT_WELCOME_MESSAGE ||
+        "Welcome! I am happy to assist you with any queries you may have",
+      "bot"
+    );
 
     return () => {
       window.removeEventListener("resize", adjustChatListHeight);
@@ -47,11 +52,14 @@ const ChatPage = () => {
   }, [inputType]);
 
   const getAnswerFromLLM = async () => {
+    const queryData = query;
+    setQuery("");
+    setInputType("text");
     try {
       const response = await axios.post(
         process.env.REACT_APP_SERVICE_BASE_URL + "/query",
         {
-          query: query,
+          query: queryData,
         }
       );
 
@@ -63,8 +71,6 @@ const ChatPage = () => {
         "bot",
         "error"
       );
-    } finally {
-      setQuery("");
     }
   };
 

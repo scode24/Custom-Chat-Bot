@@ -106,6 +106,7 @@ services:
       - REACT_APP_TAGLINE_2= # Default: AI-Powered Guidance to Boost Your Tech Skills
       - REACT_APP_SERVICE_BASE_URL=http://localhost:7001 # Required
       - REACT_APP_SOURCE_URL= # Default: https://github.com/scode24/Custom-Chat-Bot
+      - REACT_APP_CHAT_BOT_WELCOME_MESSAGE= # default : Welcome! I am happy to assist you with any queries you may have
     build:
       context: ./frontend
     networks:

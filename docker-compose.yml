@@ -8,7 +8,7 @@ services:
     environment:
       - NODE_ENV=prod
       - PORT=7001
-      - LLM_API_KEY=AIzaSyA3c9lFXRW7kaOKncWl-VVjxHvNNeut6zo #Required
+      - LLM_API_KEY= #Required
       - LLM_MODEL= # default : gemini-2.0-flash-exp
       - LLM_MODEL_CONFIG_TEMPERATURE= # default : 1
       - LLM_MODEL_CONFIG_TOP_P= # default : 0.95
@@ -28,6 +28,7 @@ services:
       - REACT_APP_TAGLINE_2= # default : AI-Powered Guidance to Boost Your Tech Skills
       - REACT_APP_SERVICE_BASE_URL=http://localhost:7001 # required
       - REACT_APP_SOURCE_URL= # default : https://github.com/scode24/Custom-Chat-Bot
+      - REACT_APP_CHAT_BOT_WELCOME_MESSAGE= # default : Welcome! I am happy to assist you with any queries you may have
     build:
       context: ./frontend
     networks:
