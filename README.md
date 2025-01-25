@@ -65,6 +65,7 @@ Configure the following frontend environment variables:
 - **REACT_APP_TAGLINE_2**: The second tagline (default: `AI-Powered Guidance to Boost Your Tech Skills`)
 - **REACT_APP_SERVICE_BASE_URL**: `http://localhost:7001 This is required`
 - **REACT_APP_SOURCE_URL**: The source URL of the repository (default: `https://github.com/scode24/Custom-Chat-Bot`)
+- **REACT_APP_CHAT_BOT_WELCOME_MESSAGE**: Welcome message from chat bot (default : `Welcome! I am happy to assist you with`)
 
 ### Step 4: Access the App
 
